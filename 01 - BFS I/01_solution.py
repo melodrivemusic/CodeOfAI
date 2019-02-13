@@ -14,7 +14,7 @@ See below for the implementation
 from collections import deque
 
 
-def bfs(graph, start, goal):
+def bfsShortestPath(graph, start, goal):
     """Finds shortest path between 2 nodes in a graph using BFS
 
     Args:
@@ -27,18 +27,18 @@ def bfs(graph, start, goal):
             the goal state, in the quickest way possible
     """
 
+    # return a simple path if start is the goal
+    if start == goal:
+        return [start]
+
     # list to keep track of all visited nodes
     explored = []
 
     # the FIFO queue
     queue = deque()
 
-    # add the start node to the queue
-    queue.append(start)
-
-    # return empty list if start is goal
-    if start == goal:
-        return []
+    # add the first path to the queue
+    queue.append([start])
 
     # keep looping until there are no nodes still to be checked
     while len(queue) > 0:
@@ -58,16 +58,21 @@ def bfs(graph, start, goal):
             # get neighbours if node is present, otherwise default to empty list
             neighbours = graph.get(node, [])
 
-            # go through all neighbour nodes, construct a new path and
-            # push it into the queue
+            # go through all neighbour nodes
             for neighbour in neighbours:
-                path1 = list(path)
+
+                # make a copy of the current path
+                path1 = path[:]
+
+                # add this neighbour to the path
                 path1.append(neighbour)
-                queue.append(path1)
 
                 # return path if neighbour is goal
                 if neighbour == goal:
                     return path1
+
+                # push it onto the queue for further exploration
+                queue.append(path1)
 
     # we couldn't find the goal... :(
     return None
@@ -86,6 +91,6 @@ if __name__ == "__main__":
         "G": ["C"]
     }
 
-    result = bfs(graph, "G", "D")
+    result = bfsShortestPath(graph, "G", "D")
 
     print("Here's the shortest path between nodes \"G\" and \"D\": {}".format(result))
