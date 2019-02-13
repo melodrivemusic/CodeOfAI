@@ -80,7 +80,7 @@ def bfsShortestPath(graph, start, goal):
 
 if __name__ == "__main__":
 
-    # sample search space, represented by a dictionary
+    # simple search space, represented by a dictionary
     graph = {
         "A": ["B", "C", "E"],
         "B": ["A", "D", "E"],
