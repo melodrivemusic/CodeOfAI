@@ -1,19 +1,3 @@
-"""
-Q1) Implement the FIFO queue using the deque object from the collections module.
-    What is the benefit of doing this?
-
-See below for the implementation. The benefit is really in optimisation.
-popleft() will result in a quicker code, as it has a time complexity of O(1) while pop(0) has O(n).
-
-Q2) Can you change the BFS implementation in order to return the shortest path between the nodes “G” and “D”
-    of the example graph we"ve been using?
-
-See below for the implementation
-"""
-
-from collections import deque
-
-
 def bfsShortestPath(graph, start, goal):
     """Finds shortest path between 2 nodes in a graph using BFS
 
@@ -38,7 +22,7 @@ def bfsShortestPath(graph, start, goal):
     explored = []
 
     # the FIFO queue
-    queue = deque()
+    queue = []
 
     # add the first path to the queue
     queue.append(path)
@@ -47,9 +31,9 @@ def bfsShortestPath(graph, start, goal):
     while len(queue) > 0:
 
         # pop first item from queue (FIFO)
-        path = queue.popleft()
+        path = queue.pop(0)
 
-        # retrieve the node from the path list
+        # retrieve the last node from the path list
         node = path[-1]
 
         # check if the node has already been explored
