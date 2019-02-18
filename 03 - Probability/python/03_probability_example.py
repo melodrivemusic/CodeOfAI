@@ -37,13 +37,13 @@ def normaliseDict(distDict):
         norm (dict): a new dictionary where the values all add up to 1
     """
 
-    # get the keys from the disctionary
+    # get the keys from the dictionary
     keys = list(distDict.keys())
 
     # normalise the values from the dictionary
     norm = normaliseSum(*distDict.values())
 
-    # create a normalised disctionary
+    # create a normalised dictionary
     normalised = {}
 
     # iterate through the keys and values
@@ -83,7 +83,7 @@ def getCumulativeDistr(distr):
     return cumulative
 
 
-def choose(distr):
+def sample(distr):
     """Picks a random value from a probability distribution
 
     Args:
@@ -112,7 +112,10 @@ def choose(distr):
 if __name__ == "__main__":
 
     # an equally weighted coin
-    coin = {"heads": 1, "tails": 1}
+    coin = {
+        "heads": 50,
+        "tails": 50
+    }
 
     result = normaliseSum(*coin.values())
     print("normaliseSum result: {}".format(result))
@@ -123,5 +126,5 @@ if __name__ == "__main__":
     result = getCumulativeDistr(coin)
     print("cumulativeDistr result: {}".format(result))
 
-    result = choose(coin)
+    result = sample(coin)
     print("Choice: {}".format(result))

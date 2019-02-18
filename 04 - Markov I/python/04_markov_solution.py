@@ -1,5 +1,5 @@
 import re
-from probability import choose
+from probability import sample
 
 def createTransitionMatrix(text):
     """Creates a transition matrix from some given text
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     transitionMatrix = createTransitionMatrix(text)
 
     # first, we decide the initial state
-    sequence = [choose(initialDistribution)]
+    sequence = [sample(initialDistribution)]
 
     # then, we'll decide the next text, up to 100 words...
     for x in range(100):
@@ -71,7 +71,7 @@ if __name__ == "__main__":
         nextDistr = transitionMatrix[state]
 
         # then decide the outcome
-        sequence.append(choose(nextDistr))
+        sequence.append(sample(nextDistr))
 
     print("Output sentence:")
     print(" ".join(sequence))

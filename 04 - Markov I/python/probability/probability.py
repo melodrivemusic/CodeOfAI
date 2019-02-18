@@ -87,7 +87,7 @@ def getCumulativeDistr(distr):
     return cumulative
 
 
-def choose(distr):
+def sample(distr):
     """Picks a random value from a probability distribution
 
     Args:

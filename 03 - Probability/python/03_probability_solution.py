@@ -83,7 +83,7 @@ def getCumulativeDistr(distr):
     return cumulative
 
 
-def choose(distr):
+def sample(distr):
     """Picks a random value from a probability distribution
 
     Args:
@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
     results = {}
     for x in range(10):
-        result = choose(fairDice)
+        result = sample(fairDice)
         i = results.get(result, 0)
         results[result] = i + 1
     print("Throw results: {}".format(results))
@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     results = {}
     for x in range(10):
-        result = choose(loadedDice)
+        result = sample(loadedDice)
         i = results.get(result, 0)
         results[result] = i + 1
     print("Throw results: {}".format(results))

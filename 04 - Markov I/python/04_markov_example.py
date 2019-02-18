@@ -1,4 +1,4 @@
-from probability import choose
+from probability import sample
 
 if __name__ == "__main__":
     # the initial distribution - to decide what happens first
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     }
 
     # first, we decide the initial state
-    sequence = choose(initialDistribution)
+    sequence = sample(initialDistribution)
 
     # then, we'll decide the next 10 states...
     for x in range(10):
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         nextDistr = transitionMatrix[state]
 
         # then decide the outcome
-        sequence += choose(nextDistr)
+        sequence += sample(nextDistr)
 
     print("Output sequence: {}".format(sequence))
 
