@@ -1,4 +1,6 @@
 /*
+Package day00 provides an example of a tree structure
+
 Q1) In the example code above, why do states 4, 5 and 6 contain empty lists?
 
 	States 4, 5 and 6 contain empty lists because they represent inaccessible states.
@@ -14,7 +16,7 @@ Q3) The tree structure covers the states and actions, but how would you represen
 	initialState = 0
 	goalState = 27
 */
-package day0
+package day00
 
 var treeComplete = [][]int{
 	// 0
