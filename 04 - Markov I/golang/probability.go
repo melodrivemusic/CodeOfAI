@@ -23,9 +23,9 @@ func normalizeMap(m map[string]float64) {
 	}
 }
 
-// choose function takes in a probability distribution
+// Sample function takes in a probability distribution
 // and returns one based on a uniformly selected random number
-func choose(m map[string]float64) string {
+func sample(m map[string]float64) string {
 
 	// uniform random number between o.o and 1.0
 	r := rand.Float64()
@@ -52,31 +52,4 @@ func choose(m map[string]float64) string {
 
 	// return the value that helped cross the r threshold
 	return key
-}
-
-// simulateThrows simulates a coin throw for given number of times,
-// map in the input represents the probability distribution of the sides
-func simulateThrows(coin map[string]float64, times int) map[string]int {
-
-	// map to store the results of each toss
-	results := make(map[string]int, times)
-
-	for i := 0; i < times; i++ {
-
-		// chooose function to select a side
-		result := choose(coin)
-
-		// check if the result has been obtained before
-		i, exists := results[result]
-
-		// if result obtained for the first time, initialize with zero
-		if !exists {
-			results[result] = 0
-		}
-
-		// increment the side by one for each face up on completion of throw
-		results[result] = i + 1
-	}
-
-	return results
 }
