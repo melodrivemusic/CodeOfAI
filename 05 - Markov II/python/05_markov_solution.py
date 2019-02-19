@@ -45,7 +45,7 @@ def updateTransitionMatrix(matrix, splitText):
             matrix[lastWord] = distr
 
 
-def createMarkovModel(dataPath, artist):
+def createMarkovChain(dataPath, artist):
     """Creates a 1st-order Markov model (an initial distribution and a transition matrix)
         from the Song Lyric dataset
 
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     print("Generating a new {} song!".format(artist))
 
     # create the initial distribution and the transition matrix from the data
-    initialDistr, transitionMatrix = createMarkovModel(dataPath, artist)
+    initialDistr, transitionMatrix = createMarkovChain(dataPath, artist)
 
     # first, we decide the initial state
     sequence = [choose(initialDistr)]
