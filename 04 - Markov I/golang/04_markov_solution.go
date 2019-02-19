@@ -5,9 +5,9 @@ import (
 	"regexp"
 )
 
-func createTransitionMatrix(text string) map[string]map[string]int {
+func createTransitionMatrix(text string) map[string]map[string]float64 {
 
-	matrix := make(map[string]map[string]int, 0)
+	matrix := make(map[string]map[string]float64, 0)
 
 	ss := regexp.MustCompile("[^a-zA-Z']+").Split(text, -1)
 
@@ -19,7 +19,7 @@ func createTransitionMatrix(text string) map[string]map[string]int {
 
 			distr, exists := matrix[lastWord]
 			if !exists {
-				distr = make(map[string]int, 0)
+				distr = make(map[string]float64, 0)
 			}
 
 			count, countExists := distr[word]
@@ -43,11 +43,27 @@ func main() {
     All the king's horses and all the king's men
 	couldn't put Humpty together again`
 
-	// initialDistribution := map[string]int{
-	// 	"Humpty": 1,
-	// }
+	initialDistribution := map[string]float64{
+		"Humpty": 1.0,
+	}
 
 	transitionMatrix := createTransitionMatrix(text)
 
-	fmt.Println(transitionMatrix["Dumpty"])
+	sequence := []string{choose(initialDistribution)}
+
+	for i := 0; i < 100; i++ {
+		state := sequence[len(sequence)-1]
+
+		_, exits := transitionMatrix[state]
+		if !exits {
+			break
+		}
+
+		nextDistr := transitionMatrix[state]
+
+		normalizeMap(nextDistr)
+		sequence = append(sequence, choose(nextDistr))
+	}
+
+	fmt.Printf("Output sentence: %v\n", sequence)
 }
