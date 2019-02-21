@@ -11,11 +11,12 @@ def createTransitionMatrix(text):
     Returns:
         matrix (dict): the transition matrix
     """
-    # create the matrix dictionary
-    matrix = {}
 
     # use a regex to split on whitespace
     splitText = re.split("[^a-zA-Z']+", text)
+
+    # create the matrix dictionary
+    matrix = {}
 
     # iterate through the words
     for i in range(len(splitText)):
