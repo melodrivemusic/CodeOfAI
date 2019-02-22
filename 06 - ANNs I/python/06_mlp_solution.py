@@ -5,7 +5,7 @@ class MLP(object):
     """A Multilayer Perceptron class.
     """
 
-    def __init__(self, numInputs=3, hiddenLayers=[3, 3], numOutputs=1):
+    def __init__(self, numInputs=3, hiddenLayers=(3, 3), numOutputs=1):
         """Constructor for the MLP. Takes the number of inputs,
             a variable number of hidden layers, and number of outputs
 
@@ -20,7 +20,7 @@ class MLP(object):
         self.numOutputs = numOutputs
 
         # create a generic representation of the layers
-        layers = [numInputs] + hiddenLayers + [numOutputs]
+        layers = [numInputs] + list(hiddenLayers) + [numOutputs]
 
         # create random connections for the layers
         weights = []
