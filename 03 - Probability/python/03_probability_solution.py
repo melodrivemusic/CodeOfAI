@@ -111,6 +111,12 @@ def sample(distr):
 
 if __name__ == "__main__":
 
+    """
+    1) Create a distribution for a fair dice and simulate throwing the dice ten times.
+    2) Create a distribution for a weighted dice that is ten times more likely to land on 
+        a 1 than the other faces. Simulate throwing the dice ten times and compare with (1).
+    """
+
     print("=== Fair dice ===")
 
     fairDice = {
