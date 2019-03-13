@@ -39,6 +39,43 @@ def createTransitionMatrix(text):
 
 if __name__ == "__main__":
 
+    # 1) Can you write a Markov chain to describe the ‘red flower red car red car red flower’ sequence?
+
+    # the initial distribution - to decide what happens first
+    initialDistribution = {
+        # for now, let's always start with "Humpty"
+        "red": 1,
+    }
+
+    # transition matrix - to decide what happens next
+    transitionMatrix = {
+        # for now, let's always start with "Humpty"
+        "red": {
+            "car": 0.5,
+            "flower": 0.5
+        },
+        "car": {
+            "red": 1
+        },
+        "flower": {
+            "red": 1
+        }
+    }
+
+    # first, we decide the initial state
+    sequence = [sample(initialDistribution)]
+
+    # then, we'll decide the next 7 states...
+    for x in range(7):
+        # find the probabilities for the next state
+        state = sequence[-1]
+        nextDistr = transitionMatrix[state]
+
+        # then decide the outcome
+        sequence.append(sample(nextDistr))
+
+    print(" ".join(sequence))
+
     # the text of our nursery rhyme
 
     text = """Humpty Dumpty sat on a wall
@@ -52,8 +89,15 @@ if __name__ == "__main__":
         "Humpty": 1,
     }
 
+    # 2) Can you write a function that automatically creates a transition matrix
+    #       from the words of the popular nursery rhyme Humpty dumpty?
+
     # the transition matrix - to decide what happens next
     transitionMatrix = createTransitionMatrix(text)
+
+
+    # 3) Can you use this transition matrix along with an initial distribution to create a
+    #       new remix of Humpty Dumpty?
 
     # first, we decide the initial state
     sequence = [sample(initialDistribution)]
