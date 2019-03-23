@@ -1,5 +1,5 @@
 import numpy as np
-from random import shuffle
+from random import random, shuffle
 
 
 class MLP(object):
@@ -101,7 +101,7 @@ class MLP(object):
             # save the derivative for gradient descent
             self.derivatives[i][:] = delta
 
-            # propogate the next error
+            # backpropogate the next error
             error = np.dot(delta, self.weights[i].T)
 
             # save the error
@@ -168,6 +168,8 @@ if __name__ == "__main__":
     # now enter the training loop
     for i in range(epochs):
         sumErrors = 0
+
+        # iterate through all the training data
         for j, input in enumerate(items):
             target = targets[j]
 
@@ -175,25 +177,32 @@ if __name__ == "__main__":
             output = mlp.activate(input)
 
             # get the error derivative
-            errorPrime = target - output
+            error = target - output
 
-            # backpropogate the error
-            mlp.backActivate(errorPrime)
+            # backpropogate this error
+            mlp.backActivate(error)
 
-            # keep track of the MSE
+            # keep track of the MSE for reporting later
             sumErrors += mse(target, output)
 
             # now perform gradient descent on the derivatives
+            # (this will update the weights
             mlp.gradientDescent(0.1)
 
-        # report the training error for this epoch
+        # Epoch complete, report the training error
         print("Epoch: %u\tError: %.4f" % (i, sumErrors / len(items)))
 
     print("Training complete!")
     print("=====")
-    # Finally, report the output:
+
+    # Finally, report the output on some test data:
     for i in range(5):
-        input = i / 5
+
+        # get a random value between 0-1
+        input = random()
+
+        # activate the network
         output = mlp.activate(input)
+        
         print("%.4f -> %.4f" % (input, output[0]))
 
