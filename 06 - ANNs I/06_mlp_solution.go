@@ -8,22 +8,18 @@ import (
 	"gonum.org/v1/gonum/mat"
 )
 
-func matPrint(X mat.Matrix) {
-	fa := mat.Formatted(X, mat.Prefix(""), mat.Squeeze())
-	fmt.Printf("%v\n", fa)
-}
-
 func main() {
 	m := &mlp.Mlp{
-		NumInputs:    1,
+		NumInputs:    2,
 		HiddenLayers: []int{2, 3, 4},
 		NumOutputs:   5,
 	}
 
 	m.Init()
 
-	inputs := mat.NewDense(1, len([]float64{1.0}), []float64{1.0})
+	input := mat.NewDense(1, m.NumInputs, []float64{1.0, 2.0})
 
-	fmt.Println("Network Activation")
-	matPrint(m.Activate(inputs))
+	output := m.Activate(input)
+
+	fmt.Printf("Network Activation: %v\n", mat.Formatted(output, mat.Prefix("")))
 }
