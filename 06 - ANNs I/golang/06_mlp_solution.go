@@ -13,16 +13,16 @@ func main() {
 	// creating an mlp by defining the number of inputs, outputs
 	// and a list of ints for the hidden layers
 	m := &mlp.Mlp{
-		NumInputs:    2,
-		HiddenLayers: []int{2, 3, 4},
-		NumOutputs:   5,
+		NumInputs:    3,
+		HiddenLayers: []int{3, 3},
+		NumOutputs:   1,
 	}
 
 	// initializing the mlp by setting the random weights
 	m.Init()
 
 	// defining the input matrix based on the size provided earlier
-	input := mat.NewDense(1, m.NumInputs, []float64{1.0, 2.0})
+	input := mat.NewDense(1, m.NumInputs, []float64{1.0, 2.0, 3.0})
 
 	// activate the network
 	output := m.Activate(input)
