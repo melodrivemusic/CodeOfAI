@@ -156,14 +156,16 @@ class MLP(object):
         numLayers = len(self.weights)
         for i in range(numLayers):
             weights = self.weights[i]
+            activations = self.activations[i+1]
             derivatives = self.derivatives[i]
-            weights += derivatives * learningRate
+            weights -= np.dot(activations, derivatives) * learningRate
+            # weights += derivatives * learningRate
 
             # update biases
             if i < numLayers-1:
                 biases = self.biases[i]
                 biasesErrors = self.biasErrors[i]
-                biases += biasesErrors * learningRate
+                biases -= biasesErrors * learningRate
 
     @staticmethod
     def _sigmoid(x):
@@ -196,7 +198,7 @@ def mse(target, output):
     return np.average((target - output) ** 2, axis=0)
 
 
-def train(mlp, items, targets, epochs=50, learningRate=0.001):
+def train(mlp, items, targets, learningRate=0.1, epochs=50):
     lastError = 0
 
     # now enter the training loop
@@ -211,7 +213,7 @@ def train(mlp, items, targets, epochs=50, learningRate=0.001):
             output = mlp.activate(input)
 
             # get the error derivative
-            error = target - output
+            error = output - target
 
             # backpropogate this error
             mlp.backActivate(error)
@@ -225,7 +227,9 @@ def train(mlp, items, targets, epochs=50, learningRate=0.001):
 
         # Epoch complete, report the training error
         lastError = sumErrors / len(items)
-        print(lastError)
+
+        # uncomment this line if you want to "see the AI"
+        # print(lastError)
 
     return lastError
 
@@ -233,16 +237,26 @@ def train(mlp, items, targets, epochs=50, learningRate=0.001):
 if __name__ == "__main__":
 
     # create a dataset, this is a simple 1-x approximation
-    N = 50
-    items = [random() for x in range(N)]
-    targets = [1-x for x in items]
+    Ns = [10, 100, 500]
 
-    # create a Multilayer Perceptron with bias
-    mlp = MLP(1, (3, 3), 1)
+    for N in Ns:
+        items = [x/N for x in range(N)]
+        error = 0
 
-    # train the network
-    err = train(mlp, items, targets)
+        # train 10 networks
+        for i in range(10):
+            shuffle(items)
+            targets = [1-x for x in items]
 
-    # Finally, report the final error
-    print("Final error: {}".format(err))
+            # create a Multilayer Perceptron with one hidden layer
+            mlp = MLP(1, (3, ), 1)
+
+            # train the network
+            err = train(mlp, items, targets)
+
+            # keep track of the error
+            error += err
+
+        # Finally, report the average error
+        print("N={}\tAverage error: {}".format(N, error/10))
 
