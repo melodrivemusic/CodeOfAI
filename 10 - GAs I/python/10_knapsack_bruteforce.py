@@ -61,7 +61,7 @@ if __name__ == "__main__":
     t1 = time()
 
     # the number of possible items to put in the knapsack
-    numItems = 25
+    numItems = 10
 
     # the items themselves
     # this will generate a random set of items, from 1-30 in value and weight
