@@ -24,28 +24,13 @@ def getPhenotype(chromosome, items):
     return [v for i, v in enumerate(items) if chromosome[i] == 1]
 
 
-def fitness(chromosome, items, capacity):
-    phenotype = getPhenotype(chromosome, items)
-    weight = sum([i.weight for i in phenotype])
-    if weight > capacity:
-        return 0
-    value = sum([i.value for i in phenotype])
-    return value
-
-
 if __name__ == "__main__":
     # the number of possible items to put in the knapsack
-    numItems = 25
+    numItems = 10
 
     # the items themselves
     # this will generate a random set of items, from 1-30 in value and weight
     items = [getRandomItem() for x in range(numItems)]
-
-    # the target capacity
-    capacity = 10 * numItems
-
-    print("Number of items:", numItems)
-    print("Capacity: ", capacity)
 
     # A potential solution to the knapsack problem as a binary chromosome
     # A list for every potential item, 1 = it's in the bag 0 = it isn't
@@ -54,7 +39,6 @@ if __name__ == "__main__":
     print("Chromosome:")
     print(chromosome)
 
-    # 1) Can you take some code from the bruteForceKnapsack function,
-    #         and create a fitness function to evaluate a single chromosome?
-    score = fitness(chromosome, items, capacity)
-    print("Fitness: ", score)
+    phenotype = getPhenotype(chromosome, items)
+    print("Phenotype ({} items):".format(len(phenotype)))
+    print(phenotype)

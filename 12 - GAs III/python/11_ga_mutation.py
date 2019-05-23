@@ -13,12 +13,12 @@ class Item:
     def __repr__(self):
         return "Item(value={}, weight={})".format(self.value, self.weight)
 
-    @classmethod
-    def random(cls, min=1, max=30):
-        return Item(
-            randrange(min, max),
-            randrange(min, max)
-        )
+
+def getRandomItem(min=1, max=30):
+    return Item(
+        random.randrange(min, max),
+        random.randrange(min, max)
+    )
 
 
 def getRandomChromosome(numItems):
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     mutationChances = [0, 0.01, 0.03, 0.1]
     numItems = 25
 
-    items = [Item.random() for x in range(numItems)]
+    items = [getRandomItem() for x in range(numItems)]
     capacity = 10 * numItems
 
     for p in popSizes:

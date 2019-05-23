@@ -14,12 +14,12 @@ class Item:
     def __repr__(self):
         return "Item(value={}, weight={})".format(self.value, self.weight)
 
-    @classmethod
-    def random(cls, min=1, max=30):
-        return Item(
-            random.randrange(min, max),
-            random.randrange(min, max)
-        )
+
+def getRandomItem(min=1, max=30):
+    return Item(
+        random.randrange(min, max),
+        random.randrange(min, max)
+    )
 
 
 def getCombinations(items, capacity):
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     # the items themselves
     # this will generate a random set of items, from 1-30 in value and weight
-    items = [Item.random() for x in range(numItems)]
+    items = [getRandomItem() for x in range(numItems)]
 
     # the target capacity
     capacity = 10 * numItems
