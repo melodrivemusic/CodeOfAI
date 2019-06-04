@@ -171,10 +171,10 @@ if __name__ == "__main__":
         selected = [x[0] for x in selected]
         children = crossover(selected)
 
-        # 4) Form new population
+        # 3) Form new population
         population = selected + children
 
-        # 4.5) population maintenance
+        # 3.5) population maintenance
         while len(population) < popSize:
             i = randrange(len(rejected))
             runt = rejected.pop(i)

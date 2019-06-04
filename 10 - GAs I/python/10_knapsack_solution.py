@@ -1,7 +1,10 @@
-import random
+from random import randrange, random
 
 
 class Item:
+    """
+    The Item class represents one item in our knapsack
+    """
     value = 0
     weight = 0
 
@@ -14,21 +17,46 @@ class Item:
 
 
 def getRandomItem(min=1, max=30):
+    """
+    Returns an Item with random weight and value
+    :param min: The minimum weight/value
+    :param max: The maximum weight/value
+    :return: Item
+    """
     return Item(
-        random.randrange(min, max),
-        random.randrange(min, max)
+        randrange(min, max),
+        randrange(min, max)
     )
 
 
 def getPhenotype(chromosome, items):
+    """
+    Given a chromosome, returns a list of items in the bag
+    :param chromosome:
+    :param items:
+    :return: list
+    """
     return [v for i, v in enumerate(items) if chromosome[i] == 1]
 
 
 def fitness(chromosome, items, capacity):
+    """
+    Calculates a fitness score for a single chromosome
+    :param chromosome:
+    :param items:
+    :param capacity:
+    :return: float
+    """
     phenotype = getPhenotype(chromosome, items)
+
+    # sum up the weight
     weight = sum([i.weight for i in phenotype])
+
     if weight > capacity:
+        # the knapsack is over capacity, return 0 fitness
         return 0
+
+    # return a fitness based on the value of the items in the knapsack
     value = sum([i.value for i in phenotype])
     return value
 
@@ -50,7 +78,7 @@ if __name__ == "__main__":
     # A potential solution to the knapsack problem as a binary chromosome
     # A list for every potential item, 1 = it's in the bag 0 = it isn't
     # Here I'll just create a random one
-    chromosome = [1 if random.random() > 0.5 else 0 for x in range(numItems)]
+    chromosome = [1 if random() > 0.5 else 0 for x in range(numItems)]
     print("Chromosome:")
     print(chromosome)
 
